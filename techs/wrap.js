@@ -1,36 +1,55 @@
-/**
- * enb-wrap
- * ========
- *
- * Wraps a file into arbitrary content.
- *
- * **Options**
- *
- * * *String* **source** — Source file.
- * * *String* **target** — Target file.
- * * *String* **before** — Text to append before source content.
- * * *String* **after**  — Text to append after source content.
- * * *Function* **wrap** — Wrapper function.
- *
- * **Example**
- *
- * ```javascript
- * nodeConfig.addTech(require('enb-wrap/techs/wrap'));
- * ```
- */
-var vfs = require('enb/lib/fs/async-fs');
+var EOL = require('os').EOL,
+    buildFlow = require('enb/lib/build-flow');
+    Vow = require('vow'),
+    vowFs = require('vow-fs');
 
-module.exports = require('enb/lib/build-flow').create()
-    .name('wrap-flow')
-    .target('target')
-    .defineRequiredOption('target')
-    .defineRequiredOption('source')
-    .defineOption('before', '')
-    .defineOption('after', '')
+/**
+ * @class wrapTechFlow
+ * @augments {BaseTech}
+ * @classdesc
+ *
+ * Collects js files, wrapps and concats them together.
+ *
+ * @param {Object}      [options]                          Options
+ * @param {String}      [options.target=js]                Path to target with compiled file.
+ * @param {String[]}    [options.sourceSuffixes=['js']]    Files with specified suffixes involved in the build process.
+ *
+ * @example
+ * addTechs([require('enb-tech-wrap/techs/wrap'), {
+ *     filesTarget: '?.spec.files',
+ *     target: '?.spec.js',
+ *     sourceSuffixes: ['spec.js'],
+ *     beforeAll: 'var b = __env__.GREP_BLOCKS;',
+ *     wrap: function (filename, content) {
+ *         var block = path.basename(filename, '.spec.js');
+ *         return 'if(b ? (new RegExp(b)).test(\'' + block + '\'):true){' + content + '}';
+ *     }
+ * }])
+ */
+module.exports = buildFlow.create()
+    .name('wrap-tech-flow')
+    .target('target', '?.js')
+    .defineOption('beforeAll')
+    .defineOption('afterAll')
+    .defineOption('before')
+    .defineOption('after')
     .defineOption('wrap')
-    .useSourceFilename('source')
-    .justJoinFiles(function (filename, content) {
-        var wrapped = this.getOption('before') + content + this.getOption('after');
-        return this.getOption('wrap').call(this, wrapped, filename);
+    .useFileList(['js'])
+    .builder(function (files) {
+        var before = this.getOption('before') || '',
+            after = this.getOption('after') || '',
+            beforeAll = this.getOption('beforeAll') || '',
+            afterAll = this.getOption('afterAll') || '',
+            wrap = this.getOption('wrap');
+
+        return Vow.all(files.map(function (file) {
+            return vowFs.read(file.fullname, 'utf8').then(function (content) {
+                var wrapped = before + content + after;
+                return wrap ? wrap.call(this, file.name, wrapped) : wrapped;
+            });
+        }, this))
+        .then(function (res) {
+            return beforeAll + res.join(EOL) + afterAll;
+        });
     })
     .createTech();
