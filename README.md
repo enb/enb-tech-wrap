@@ -1,4 +1,4 @@
-# enb-wrap
+# enb-tech-wrap
 
 ENB plugin to wrap a file into arbitrary content.
 
@@ -11,12 +11,12 @@ npm i enb-wrap --save
 ## Usage
 
 ```js
-[require('enb-wrap/techs/wrap'), {
-    source: '?.js',
+[require('enb-tech-wrap/techs/wrap'), {
+    filesTarget: '?.js', // source
     target: '?.wrapped.js',
     before: '/* before */',
     after: '/* after */',
-    wrap: function(content, file) {
+    wrap: function(file, content) {
         return [
             '// The code was taken from ' + file,
             content
@@ -27,4 +27,4 @@ npm i enb-wrap --save
 
 ## License
 
-© 2014 YANDEX LLC. The Source Code is subject to the terms of the [Mozilla Public License 2.0](LICENSE.txt).
+© 2017 YANDEX LLC. The Source Code is subject to the terms of the [Mozilla Public License 2.0](LICENSE.txt).
