@@ -21,7 +21,7 @@
 var vfs = require('enb/lib/fs/async-fs');
 
 module.exports = require('enb/lib/build-flow').create()
-    .name('enb-wrap')
+    .name('wrap-flow')
     .target('target')
     .defineRequiredOption('target')
     .defineRequiredOption('source')
@@ -29,16 +29,8 @@ module.exports = require('enb/lib/build-flow').create()
     .defineOption('after', '')
     .defineOption('wrap')
     .useSourceFilename('source')
-    .builder(function(fileName) {
-        var before = this._before,
-            after = this._after,
-            wrap = this._wrap;
-
-        return vfs.read(fileName, 'utf-8')
-            .then(function(content) {
-                var wrappedContent = before + content + after;
-
-                return wrap ? wrap(wrappedContent, fileName) : wrappedContent;
-            });
+    .justJoinFiles(function (filename, content) {
+        var wrapped = this.getOption('before') + content + this.getOption('after');
+        return this.getOption('wrap').call(this, wrapped, filename);
     })
     .createTech();
