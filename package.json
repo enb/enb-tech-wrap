@@ -2,14 +2,14 @@
   "author": "Vladimir Grinenko <i@tadatuta.com>",
   "description": "ENB plugin to wrap a file into arbitrary content",
   "name": "enb-tech-wrap",
-  "version": "0.2.0",
-  "repository": "git://github.com/tadatuta/enb-wrap",
-  "homepage": "https://github.com/tadatuta/enb-wrap",
-  "bugs": "https://github.com/tadatuta/enb-wrap/issues",
+  "version": "0.1.0",
+  "repository": "git://github.com/bem-kit/enb-wrap",
+  "homepage": "https://github.com/bem-kit/enb-wrap",
+  "bugs": "https://github.com/bem-kit/enb-wrap/issues",
   "licenses": [
     {
       "type": "MPL-2.0",
-      "url": "https://github.com/tadatuta/enb-wrap/blob/master/LICENSE.txt"
+      "url": "https://github.com/bem-kit/enb-wrap/blob/master/LICENSE.txt"
     }
   ],
   "contributors": [
