@@ -5,7 +5,7 @@ ENB plugin to wrap a file into arbitrary content.
 ## Installation
 
 ```
-npm i enb-wrap --save
+npm i -S enb-tech-wrap
 ```
 
 ## Usage
