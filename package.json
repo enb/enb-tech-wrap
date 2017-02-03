@@ -3,19 +3,13 @@
   "description": "ENB plugin to wrap a file into arbitrary content",
   "name": "enb-tech-wrap",
   "version": "0.2.0",
-  "repository": "git://github.com/bem-kit/enb-wrap",
-  "homepage": "https://github.com/bem-kit/enb-wrap",
-  "bugs": "https://github.com/bem-kit/enb-wrap/issues",
+  "repository": "git://github.com/enb/enb-tech-wrap",
+  "homepage": "https://github.com/enb/enb-tech-wrap",
+  "bugs": "https://github.com/enb/enb-tech-wrap/issues",
   "licenses": [
     {
       "type": "MPL-2.0",
-      "url": "https://github.com/bem-kit/enb-wrap/blob/master/LICENSE.txt"
-    }
-  ],
-  "contributors": [
-    {
-      "name": "Vladimir Grinenko",
-      "email": "i@tadatuta.com"
+      "url": "https://github.com/enb/enb-tech-wrap/blob/master/LICENSE.txt"
     }
   ],
   "engines": {
