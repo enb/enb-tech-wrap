@@ -2,7 +2,7 @@
   "author": "Vladimir Grinenko <i@tadatuta.com>",
   "description": "ENB plugin to wrap a file into arbitrary content",
   "name": "enb-tech-wrap",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": "git://github.com/enb/enb-tech-wrap",
   "homepage": "https://github.com/enb/enb-tech-wrap",
   "bugs": "https://github.com/enb/enb-tech-wrap/issues",
